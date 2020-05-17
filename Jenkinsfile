@@ -3,12 +3,12 @@ pipeline {
     registry = "hemantakumarpati/resultprocessingsystem"
     registryCredential = 'dockeruser'
     dockerImage = ''
-  }
+ }
   agent any
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/Hemantakumarpati/ResultProcessingSystem.git'
+        git 'https://github.com/Hemantakumarpati/OnlineBookStore.git'
       }
     }
     stage('Building image') {
@@ -18,27 +18,27 @@ pipeline {
         }
       }
     }
-    stage('Test OnlineBookStore' ) {
+    /*stage('Test Image' ) {
                 agent {
-                docker { image 'hemantakumarpati/resultprocessingsystem:$BUILD_NUMBER' }
+                docker { image 'hemantakumarpati/onlinebookstore:$BUILD_NUMBER' }
             }
             steps {
                 sh 'docker --version'
             }
-        }
+        }*/
     stage('Deploy Image') {
       steps{
         script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
-        }
+          //withCredentials([usernamePassword( credentialsId: 'dockeruser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          //docker.withRegistry('https://registry.hub.docker.com', 'dockeruser') {
+          //sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+          //dockerImage.push("$BUILD_NUMBER")
+          //dockerImage.push("latest")
+          sh "/home/hemant_pati/dockerpush.sh ${BUILD_NUMBER}"
+            //}
+       // }
       }
     }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
-    }
+  }
   }
 }
