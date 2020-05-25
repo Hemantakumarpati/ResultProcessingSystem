@@ -61,7 +61,7 @@ alert(msg1);
 <p align="justify"> <font face="arial narrow"><b>
 	Intelli-School project is aimed at developing a school administration system which can Stream line the administration of school. It solves the problems of school management and make easier to maintain students data and develops a strong interaction between the teachers and students. It finds very easier for the parents to get information regarding their pupils and to contact the respective teacher. It assists the school administration to perform various activities.
 </b></font></p>
-<td><jsp:include page="./Login.html" /></td>
+<td><jsp:include page="Login.html"/></td>
 </tr>
 </table>
 <br><br><br>
