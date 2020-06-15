@@ -10,7 +10,7 @@ node{
       // Get maven home path
       //def mvnHome =  tool name: 'maven-3', type: 'maven'   
       //bat "${mvnHome}\\bin\\mvn package"
-      bat "mvn package"
+      sh "mvn package"
       }
    stage('Sonar'){
         try {
