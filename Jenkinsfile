@@ -12,6 +12,13 @@ node{
       //bat "${mvnHome}\\bin\\mvn package"
       bat "mvn package"
       }
+   stage('Sonar'){
+        try {
+            sh "mvn sonar:sonar"
+        } catch(error){
+            echo "The sonar server could not be reached ${error}"
+        }
+     }
 /*   stage ('Stop Tomcat Server') {
                bat ''' @ECHO OFF
                wmic process list brief | find /i "tomcat" > NUL
