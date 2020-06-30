@@ -11,14 +11,16 @@ pipeline {
         git 'https://github.com/Hemantakumarpati/ResultProcessingSystem.git'
       }
     }
-    stage('Build'){
-        sh "mvn clean install"
-    }
-    stage ('Code quality scan') {
-      withSonarQubeEnv('SonarQube') {
-      sh "${mvnHome}/bin/mvn sonar:sonar -f ResultProcessingSystem/pom.xml"
+   stage('build && SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('My SonarQube Server') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'Maven 3.5') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }
+            }
         }
-    }
     stage('Building image') {
       steps{
         script {
