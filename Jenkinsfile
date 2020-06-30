@@ -11,6 +11,9 @@ pipeline {
         git 'https://github.com/Hemantakumarpati/ResultProcessingSystem.git'
       }
     }
+    stage('Build'){
+        sh "mvn clean install"
+    }
      stage('Sonar'){
         try {
             sh "mvn sonar:sonar"
